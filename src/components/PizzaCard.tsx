@@ -9,10 +9,12 @@ import type { Pizza } from "@/lib/types";
 export default function PizzaCard({
   pizza,
   isFavorite,
+  favoriteIdPromise,
   onToggleFavorite,
 }: {
   pizza: Pizza;
   isFavorite: boolean;
+  favoriteIdPromise: Promise<string[]>;
   onToggleFavorite: () => void;
 }) {
   return (
@@ -36,8 +38,10 @@ export default function PizzaCard({
           </Link>
           <FavoriteButton
             pizzaName={pizza.name}
-            isFavorite={isFavorite}
+            pizzaId={pizza.id}
+            // isFavorite={isFavorite}
             onToggle={onToggleFavorite}
+            favoriteIdsPromise={favoriteIdPromise}
           />
         </div>
         <p className="line-clamp-2 text-sm text-ink/70">{pizza.description}</p>

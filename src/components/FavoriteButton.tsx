@@ -1,14 +1,21 @@
 "use client";
+import { use, useState} from "react";
 
 export default function FavoriteButton({
+  pizzaId,
   pizzaName,
-  isFavorite,
+  // isFavorite,
   onToggle,
+  favoriteIdsPromise,
 }: {
+  pizzaId: string;
   pizzaName: string;
-  isFavorite: boolean;
+  // isFavorite: boolean;
   onToggle: () => void;
+  favoriteIdsPromise: Promise<string[]>;
 }) {
+  const favoriteIds = use(favoriteIdsPromise);
+  const [isFavorite, setIsFavorite] = useState(favoriteIds.includes(pizzaId));
   return (
     <button
       type="button"
