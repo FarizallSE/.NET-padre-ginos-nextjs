@@ -48,6 +48,13 @@ export async function getPizzas(): Promise<Pizza[]> {
 }
 
 export async function getPizza(id: string): Promise<Pizza | null> {
+// Data detail sifatnya sama statisnya dengan menu asalnya, jadi data ini
+// juga seharusnya masuk ke dalam static shell. Karena `id` merupakan argumen
+// yang dapat diserialisasi (serializable), ia menjadi bagian dari cache key 
+// sehingga setiap pizza akan memiliki entrinya masing-masing di dalam cache.
+  "use cache";
+  cacheLife("hours");
+  cacheTag("menu");
   await simulateLatency("read");
   const row = await get<PizzaRow>(
     `SELECT ${PIZZA_COLUMNS} FROM pizza_types WHERE pizza_type_id = ?`,
